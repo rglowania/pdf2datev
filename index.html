@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDF2DATEV (Kontoauszüge)</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230c1410'/><text x='16' y='23' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%235d9e7a' text-anchor='middle'>g</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 
@@ -29,6 +30,7 @@
   }
 }
 *{box-sizing:border-box;margin:0;padding:0;}
+body{font-feature-settings:"ss01";}
 body{
   background:var(--bg);color:var(--text);
   font-family:'IBM Plex Sans',sans-serif;font-weight:300;
@@ -375,7 +377,7 @@ td.del-col button:hover{color:#e07a7a;}
   </p>
 </div>
 
-<footer>© Robin Glowania</footer>
+<footer>© Robin Glowania · Zuletzt aktualisiert: 07.05.2026</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
@@ -408,6 +410,11 @@ function saveStammdatenLocal(){
 }
 ['berater-nr','mandant-nr','konto-bank','kontorahmen','waehrung'].forEach(id=>{
   document.getElementById(id).addEventListener('change',saveStammdatenLocal);
+});
+document.getElementById('kontorahmen').addEventListener('change',function(){
+  const kb=document.getElementById('konto-bank');
+  if(this.value==='SKR03') kb.value='1200';
+  else if(this.value==='SKR04') kb.value='1800';
 });
 
 function exportStammdaten(){
